@@ -1,8 +1,8 @@
 INSERT INTO TO_DO_LIST (TITLE)VALUES
-('shopping list');
-('and a list');
-('this is a list as well');
-('list again');
+('shopping list'),
+('and a list'),
+('this is a list as well'),
+('list again'),
 ('final list');
 
 INSERT INTO TASK (DESCRIPTION, IMPORTANCE, IS_DONE, NAME, LIST_ID) VALUES

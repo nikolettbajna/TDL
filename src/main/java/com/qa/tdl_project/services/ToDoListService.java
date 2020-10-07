@@ -32,5 +32,11 @@ public class ToDoListService {
 	public List<ToDoListDTO> viewLists(){		
 		return this.repo.findAll().stream().map(this::mapToDTO).collect(Collectors.toList());
 	}
+	
+	//delete selected to-do list
+	public boolean deleteToDoListById(Long id) {
+		this.repo.deleteById(id);
+		return !this.repo.existsById(id);
+	}
 
 }

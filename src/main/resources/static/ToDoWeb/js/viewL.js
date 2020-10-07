@@ -22,15 +22,18 @@ fetch('http://localhost:8901/todolists/viewAll')
         let tdlists = document.querySelector('p.tdlists');
         let artic = document.createElement("article");
         let title = document.createElement("h3");
-        title.innerHTML = lists.title;
+        title.innerHTML = "~ "+lists.title;
         let viewBtn = document.createElement("a");
         viewBtn.innerHTML=("View this list")
-        viewBtn.className= ("btn btn-dark")
-        let deleteBtn = document.createElement("a");
+        viewBtn.className= ("btn")
+        let deleteBtn = document.createElement("button");
         deleteBtn.innerHTML=("Delete list");
         deleteBtn.className= ("btn");
         viewBtn.href="viewTasks.html?"+lists.id;
-        deleteBtn.href="http://localhost:8901/todolists/delete";
+        deleteBtn.onclick = function(){
+            deleteList(lists.id);
+            return false;
+        };
         artic.appendChild(title);
         artic.appendChild(deleteBtn);
         artic.appendChild(viewBtn);
@@ -41,4 +44,19 @@ fetch('http://localhost:8901/todolists/viewAll')
       for (let element of data) {
         allMyLists(element);
       }
+    }
+
+    function deleteList(id) {
+        fetch("http://localhost:8901/todolists/delete/"+id, {
+          method: "DELETE",
+          headers: {
+            "Content-type": "application/json"
+          },
+        })
+        .then(res => res.json())
+        .catch(function (err) {
+            console.log('Fetch Error :-S', err);
+        });
+
+        location.reload();
     }
