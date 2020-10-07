@@ -1,0 +1,101 @@
+body{
+    background-color: rgb(80,80,80);
+}
+
+h1{
+    font-family: 'Sansita Swashed', cursive;
+    color: rgb(170,170,170);
+    text-align: center;
+}
+
+h2{
+    font-family: 'Balsamiq Sans', cursive;
+    color: rgb(170,170,170);
+    text-align: center;
+}
+
+h4{
+    text-align: right;
+    margin-right: 30%;
+}
+
+.button {
+    background-color: rgb(170,170,170);
+    font-family: 'Balsamiq Sans', cursive;
+    border: none;
+    color: rgb(80,80,80);
+    padding: 50px 60px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 22px;
+    margin: 10% 1%;
+    cursor: pointer;
+    border-radius: 40px;
+}
+
+.button:hover{
+    background-color: rgb(100,100,100);
+    font-weight: 600;
+    border: 2px rgb(50,50,50) solid;
+    padding: 48px 58px;
+}
+
+.button2 {
+    background-color: rgb(170,170,170);
+    font-family: 'Balsamiq Sans', cursive;
+    border: none;
+    color: rgb(80,80,80);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 40px;
+}
+
+.button2:hover {
+    background-color: rgb(100,100,100);
+    border: 2px rgb(50,50,50) solid;
+    padding: 8px 18px;
+}
+
+a:hover {
+    text-decoration: none;
+    color: rgb(40,40,40);
+}
+
+article h3 {
+    display: inline-block;
+    margin-left: 3%;
+    margin-bottom: 2%;
+}
+
+.btn {
+    background-color: rgb(170,170,170);
+    font-family: 'Balsamiq Sans', cursive;
+    border: none;
+    color: rgb(80,80,80);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 40px;
+    float: right;
+    margin-right: 2%;
+}
+
+.btn:hover {
+    background-color: rgb(100,100,100);
+    border: 2px rgb(50,50,50) solid;
+    padding: 8px 18px;
+}
+
+.tdlists {
+    background-color: rgb(110,110,110);
+    margin: 5%;
+    padding: 4% 3% 2% 3%;
+    border-radius: 40px;
+}
