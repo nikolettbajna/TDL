@@ -29,13 +29,27 @@ fetch('http://localhost:8901/todolists/viewAll')
         let deleteBtn = document.createElement("button");
         deleteBtn.innerHTML=("Delete list");
         deleteBtn.className= ("btn");
+        let updateBtn = document.createElement("button");
+        updateBtn.innerHTML=("Update list");
+        updateBtn.className= ("btn");
         viewBtn.href="viewTasks.html?"+lists.id;
         deleteBtn.onclick = function(){
             deleteList(lists.id);
             return false;
         };
+        updateBtn.onclick = function(){
+            let show = document.querySelector("form.updatelist");
+            if (show.style.display === "none") {
+                show.style.display = "block";
+            } else {
+                show.style.display = "none";
+            }
+            document.getElementById("lID").value=lists.id;
+            document.getElementById("lTitle").value=lists.title;
+        };
         artic.appendChild(title);
         artic.appendChild(deleteBtn);
+        artic.appendChild(updateBtn);
         artic.appendChild(viewBtn);
         tdlists.appendChild(artic);
     }
@@ -53,10 +67,41 @@ fetch('http://localhost:8901/todolists/viewAll')
             "Content-type": "application/json"
           },
         })
-        .then(res => res.json())
+        .then(json)
         .catch(function (err) {
-            console.log('Fetch Error :-S', err);
+            console.log('Request faild:', err);
         });
 
         location.reload();
+    }
+
+    document.querySelector("form.updatelist").addEventListener("submit",function(stop){
+        stop.preventDefault();
+    
+        let formElements = document.querySelector("form.updatelist").elements;
+        let lID = formElements["lID"].value;
+        let lTitle = formElements["lTitle"].value;
+        updateList(lID, lTitle);
+    });
+
+    function updateList(lid, ltitle){
+
+        fetch("http://localhost:8901/todolists/update/"+lid, {
+            method: "put",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: json = JSON.stringify({
+                "id": lid,
+                "title": ltitle
+            })
+        })
+        .then(json)
+        .then(function(data){
+            console.log('Request succeeded with JSON response', data)
+            location.reload();
+        })
+        .catch(function (err){
+            console.log('Request faild:', err)
+        });
     }

@@ -114,3 +114,7 @@ label.nlTitle{
     float: none;
     margin-top: 3%;
 }
+
+form.updatelist{
+    display: none;
+}

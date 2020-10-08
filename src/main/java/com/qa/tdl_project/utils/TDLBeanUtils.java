@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TDLBeanUtils {
 
-	public static void mergeNotNull(Object source, Object target) {
+	public static void merge(Object source, Object target) {
         BeanUtils.copyProperties(source, target, getNullPropertyNames(source));
     }
 
