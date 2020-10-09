@@ -15,7 +15,7 @@ fetch('http://localhost:8901/todolists/viewAll')
         }
     )
     .catch(function(err){
-        console.log('Fetch Error :-S', err);
+        console.log('Fetch failed:', err);
     });
 
     function allMyLists(lists) {
@@ -67,7 +67,7 @@ fetch('http://localhost:8901/todolists/viewAll')
             "Content-type": "application/json"
           },
         })
-        .then(res => res.json())
+        .then(json)
         .catch(function (err) {
             console.log('Request faild:', err);
         });
@@ -86,8 +86,8 @@ fetch('http://localhost:8901/todolists/viewAll')
 
     function updateList(lid, ltitle){
 
-        fetch("http://localhost:8901/todolists/update"+lid, {
-            method: "post",
+        fetch("http://localhost:8901/todolists/update/"+lid, {
+            method: "put",
             headers: {
                 "Content-type": "application/json"
             },
@@ -99,7 +99,7 @@ fetch('http://localhost:8901/todolists/viewAll')
         .then(json)
         .then(function(data){
             console.log('Request succeeded with JSON response', data)
-            window.location.href = "viewLists.html";
+            location.reload();
         })
         .catch(function (err){
             console.log('Request faild:', err)

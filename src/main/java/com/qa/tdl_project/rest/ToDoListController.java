@@ -57,4 +57,10 @@ public class ToDoListController {
 		return new ResponseEntity<>(updated, HttpStatus.ACCEPTED);
 	}
 	
+	//view all the tasks form a specific to-do list by id
+	@GetMapping("/view/{id}")
+	public ResponseEntity<ToDoListDTO> viewTDLById(@PathVariable Long id){
+		return ResponseEntity.ok(this.service.viewTDLById(id));
+	}
+	
 }

@@ -15,7 +15,7 @@ fetch('http://localhost:8901/todolists/viewAll')
         }
     )
     .catch(function(err){
-        console.log('Fetch Error :-S', err);
+        console.log('Fetch failed:', err);
     });
 
     function allMyLists(lists) {

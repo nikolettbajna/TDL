@@ -53,4 +53,10 @@ public class ToDoListService {
 		TDLBeanUtils.merge(todolistdto, todoUpdate);
 		return this.mapToDTO(this.repo.save(todoUpdate));
 	}
+	
+	//view all the tasks in a specific to-do list
+	public ToDoListDTO viewTDLById(Long id) {
+		ToDoList view = this.repo.findById(id).orElseThrow(ToDoListNotFoundException::new);
+		return this.mapToDTO(view);
+	}
 }
