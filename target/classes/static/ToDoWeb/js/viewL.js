@@ -71,7 +71,6 @@ fetch('http://localhost:8901/todolists/viewAll')
         .catch(function (err) {
             console.log('Request faild:', err);
         });
-
         location.reload();
     }
 

@@ -45,7 +45,6 @@
         let row = tableHead.insertRow();
         for(let keys of Object.keys(data.tasks[0])){
             if(keys === "tasks"){
-
             }else{
                 let th = document.createElement("th");
                 let text = document.createTextNode(keys);
@@ -55,9 +54,13 @@
         }
 
         let th2 = document.createElement("th");
+        let th3 = document.createElement("th");
         let text2 = document.createTextNode("View");
+        let text3 = document.createTextNode("Delete");
         th2.appendChild(text2);
+        th3.appendChild(text3);
         row.appendChild(th2);
+        row.appendChild(th3);
     }
 
     function showTasks(table,data){
@@ -84,8 +87,30 @@
             let myViewButton = document.createElement("a");
             myViewButton.innerHTML = "View";
             myViewButton.className = "btn btn-danger";
-            myViewButton.href = "#"+d.id;
+            myViewButton.href = "viewTask.html?"+d.id;
+            let newCell2 = row.insertCell();
+            let deleteBtn = document.createElement("button");
+            deleteBtn.innerHTML = "Delete";
+            deleteBtn.className = "btn btn-danger";
+            deleteBtn.onclick = function(){
+                deleteTask(d.id);
+                return false;
+            };
             newCell.appendChild(myViewButton);
+            newCell2.appendChild(deleteBtn);
         }
-
     }
+
+        function deleteTask(id) {
+            fetch("http://localhost:8901/tasks/delete/"+id, {
+              method: "DELETE",
+              headers: {
+                "Content-type": "application/json"
+              },
+            })
+            .then(json)
+            .catch(function (err) {
+                console.log('Request faild:', err);
+            });
+            location.reload();
+        }
