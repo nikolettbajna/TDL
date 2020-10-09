@@ -43,33 +43,47 @@
         }
     }
 
-    // document.querySelector("form.theTask#deleteBtn").addEventListener("submit",function(stop){
-    //     stop.preventDefault();
+    function updateClick(){
     
-    //     let formElements = document.querySelector("form.updatelist").elements;
-    //     let lID = formElements["lID"].value;
-    //     let lTitle = formElements["lTitle"].value;
-    //     updateList(lID, lTitle);
-    // });
+        let formElements = document.querySelector("form.theTask").elements;
+        let tId = formElements["id"].value;
+        let tName = formElements["name"].value;
+        let tDescription = formElements["description"].value;
+        let tImportance = formElements["importance"].value;
+        let tDone = formElements["done"].value;
+        let isDone = "";
+        if(tDone){
+            isDone = true;
+        }else{
+            isDone = false;
+        }
+        updateList(tId, tName, tDescription, tImportance, isDone);
+    }
 
-    // function updateList(lid, ltitle){
+    function updateList(tId, tName, tDescription, tImportance, isDone){
 
-    //     fetch("http://localhost:8901/tasks/update/"+lid, {
-    //         method: "put",
-    //         headers: {
-    //             "Content-type": "application/json"
-    //         },
-    //         body: json = JSON.stringify({
-    //             "id": lid,
-    //             "title": ltitle
-    //         })
-    //     })
-    //     .then(json)
-    //     .then(function(data){
-    //         console.log('Request succeeded with JSON response', data)
-    //         location.reload();
-    //     })
-    //     .catch(function (err){
-    //         console.log('Request faild:', err)
-    //     });
-    // }
+        fetch("http://localhost:8901/tasks/update/"+lid, {
+            method: "put",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: json = JSON.stringify({
+            "id": tId,
+            "name": tName,
+            "description": tDescription,
+            "importance": tImportance,
+            "isDone": isDone,
+            "list":{
+                "id": 1
+            }
+            })
+        })
+        .then(json)
+        .then(function(data){
+            console.log('Request succeeded with JSON response', data)
+            location.reload();
+        })
+        .catch(function (err){
+            console.log('Request faild:', err)
+        });
+    }
