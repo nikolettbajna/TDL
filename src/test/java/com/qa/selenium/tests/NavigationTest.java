@@ -1,4 +1,4 @@
-package com.qa.selenium;
+package com.qa.selenium.tests;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import com.qa.selenium.IndexPage;
 
 public class NavigationTest {
 	public static WebDriver driver;

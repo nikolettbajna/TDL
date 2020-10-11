@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.qa.tdl_project.dto.ToDoListDTO;
+import com.qa.tdl_project.exception.ToDoListNotFoundException;
 import com.qa.tdl_project.presistence.domain.ToDoList;
 import com.qa.tdl_project.presistence.repo.ToDoListRepo;
+import com.qa.tdl_project.utils.TDLBeanUtils;
 
 @Service
 public class ToDoListService {
@@ -43,5 +45,18 @@ public class ToDoListService {
 	public ToDoListDTO createToDoList(ToDoList todolist) {
 		ToDoList saved = this.repo.save(todolist);
 		return this.mapToDTO(saved);
+	}
+	
+	//update a to-do list
+	public ToDoListDTO updateTDLById(ToDoListDTO todolistdto, Long id) {
+		ToDoList todoUpdate = this.repo.findById(id).orElseThrow(ToDoListNotFoundException::new);
+		TDLBeanUtils.merge(todolistdto, todoUpdate);
+		return this.mapToDTO(this.repo.save(todoUpdate));
+	}
+	
+	//view all the tasks in a specific to-do list
+	public ToDoListDTO viewTDLById(Long id) {
+		ToDoList view = this.repo.findById(id).orElseThrow(ToDoListNotFoundException::new);
+		return this.mapToDTO(view);
 	}
 }

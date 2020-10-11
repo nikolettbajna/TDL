@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,6 +48,19 @@ public class ToDoListController {
 	@PostMapping("/create")
 	public ResponseEntity<ToDoListDTO> create(@RequestBody ToDoList todolist){
 		return new ResponseEntity<>(this.service.createToDoList(todolist), HttpStatus.CREATED);
+	}
+	
+	//update a to-do list
+	@PutMapping("/update/{id}")
+	public ResponseEntity<ToDoListDTO> updateTDLById(@PathVariable Long id, @RequestBody ToDoListDTO todolistdto){
+		ToDoListDTO updated = this.service.updateTDLById(todolistdto, id);
+		return new ResponseEntity<>(updated, HttpStatus.ACCEPTED);
+	}
+	
+	//view all the tasks form a specific to-do list by id
+	@GetMapping("/view/{id}")
+	public ResponseEntity<ToDoListDTO> viewTDLById(@PathVariable Long id){
+		return ResponseEntity.ok(this.service.viewTDLById(id));
 	}
 	
 }

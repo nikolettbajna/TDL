@@ -51,5 +51,12 @@ public class Task {
 		this.isDone = isDone;
 		this.list = list;
 	}
+	
+	public Task(String name, String description, String importance, Boolean isDone) {
+		this.name = name;
+		this.description = description;
+		this.importance = importance;
+		this.isDone = isDone;
+	}
 
 }

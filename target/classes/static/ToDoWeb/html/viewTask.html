@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Balsamiq+Sans:wght@500&display=swap" rel="stylesheet">
+    <title>My task</title>
+</head>
+<body>
+
+    <div class="conatiner">
+        <h2>View, update, delete this task</h2>
+
+        <center>
+        <form class="theTask" id="theTask">
+            <div class="form-group">
+                <label for="id">ID of your task</label>
+                <input type="text" id="id" name="id">
+            </div>
+            <div class="form-group">
+                <label for="name">Name of your task</label>
+                <input type="text" id="name" name="name">
+            </div>
+            <div class="form-group">
+                <label for="description">Description of your task</label>
+                <input type="text" id="description" name="description">
+            </div>
+            <div class="form-group">
+                <label for="importance">Importance of your task</label>
+                <select id="importance" name="importance">
+                    <option value="Not imp">Not important</option>
+                    <option value="Medium">Medium important</option>
+                    <option value="Important">Very important</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="isDone">Status of your task</label>
+                <input type="radio" id="done" name="isDone" value="true">
+                <label for="done">Done</label>
+                <input type="radio" id="notDone" name="isDone" value="false">
+                <label for="done">Not Done</label>
+            </div>
+
+            <button type="submit" id="updateBtn" class="btn btn-primary" onclick="updateClick()">Update</button>
+            <a href="viewLists.html" id="backToListBtn" class="btn btn-primary">Back to list</a>
+        </form>
+        </center>
+
+    </div>
+    
+    <script src="../js/task.js"></script>
+</body>
+</html>

@@ -113,4 +113,11 @@ label.nlTitle{
     font-size: 16px;
     float: none;
     margin-top: 3%;
+<<<<<<< HEAD
+=======
+}
+
+form.updatelist{
+    display: none;
+>>>>>>> dev
 }
