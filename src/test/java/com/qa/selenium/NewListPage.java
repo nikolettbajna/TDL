@@ -32,14 +32,14 @@ public class NewListPage {
 		System.out.println(driver.getTitle());
 	}
 	
-	public void newList() {
-		String nTitle = "example2";
-		newTitle.sendKeys(nTitle);
-		create.click();
-		List<WebElement> lists = driver.findElements(By.cssSelector("/html/body/div/section/article/p"));
-        for(WebElement list: lists) {
-        	System.out.println(list.findElement(By.cssSelector("p alticle:last-child")).getText());
-        }
-	}
+//	public void newList() {
+//		String nTitle = "example2";
+//		newTitle.sendKeys(nTitle);
+//		create.click();
+//		List<WebElement> lists = driver.findElements(By.cssSelector("/html/body/div/section/article/p"));
+//        for(WebElement list: lists) {
+//        	System.out.println(list.findElement(By.cssSelector("p alticle:last-child")).getText());
+//        }
+//	}
 
 }

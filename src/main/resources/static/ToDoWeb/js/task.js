@@ -68,14 +68,14 @@
                 "Content-type": "application/json"
             },
             body: json = JSON.stringify({
-            "id": tId,
-            "name": tName,
-            "description": tDescription,
-            "importance": tImportance,
-            "isDone": isDone,
-            "list":{
-                "id": 1
-            }
+                "id": tId,
+                "name": tName,
+                "description": tDescription,
+                "importance": tImportance,
+                "isDone": isDone,
+                "list":{
+                    "id": 1
+                }
             })
         })
         .then(json)

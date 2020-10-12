@@ -46,7 +46,7 @@ class TaskControllerUnitTest {
     private final Long id = 1L;
     private final String name = "Buy milk";
     private final String description = "1 pint, half-fat";
-    private final String importance = "Very important";
+    private final String importance = "Important";
     private final Boolean isDone = false;
     
 
@@ -56,16 +56,16 @@ class TaskControllerUnitTest {
         this.testTask = new Task(name, description, importance, isDone);
         this.testTaskwithID = new Task(testTask.getName(), testTask.getDescription(), testTask.getImportance(), testTask.getIsDone());
         this.testTaskwithID.setId(id);
-        this.taskList.add(testTaskwithID);
-        this.taskDTO = this.mapToDTO(testTaskwithID);
+        this.taskList.add(this.testTaskwithID);
+        this.taskDTO = this.mapToDTO(this.testTaskwithID);
     }
 
     @Test
     void createTest() {
-        when(this.service.createTask(testTask)).thenReturn(this.taskDTO);
+        when(this.service.createTask(this.testTask)).thenReturn(this.taskDTO);
         TaskDTO testCreated = this.taskDTO;
         assertThat(new ResponseEntity<TaskDTO>(testCreated, HttpStatus.CREATED))
-                .isEqualTo(this.controller.create(testTask));
+                .isEqualTo(this.controller.create(this.testTask));
         verify(this.service, times(1)).createTask(this.testTask);
     }
 
@@ -83,8 +83,18 @@ class TaskControllerUnitTest {
 
     @Test
     void deleteTest() {
-        this.controller.deleteTaskById(id);
-        verify(this.service, times(1)).deleteTaskById(id);
+        this.controller.deleteTaskById(this.id);
+        verify(this.service, times(1)).deleteTaskById(this.id);
+    }
+    
+    @Test
+    void updateTest() {
+        TaskDTO aTask = new TaskDTO(null, "present for mum", "birthday gift, she loves flowers", "Important", false);
+        TaskDTO updateTask = new TaskDTO(this.id, aTask.getName(), aTask.getDescription(), aTask.getImportance(), aTask.getIsDone());
+        when(this.service.updateTaskById(aTask, this.id)).thenReturn(updateTask);
+        assertThat(new ResponseEntity<TaskDTO>(updateTask, HttpStatus.ACCEPTED))
+                .isEqualTo(this.controller.updateTaskById(this.id, aTask));
+        verify(this.service, times(1)).updateTaskById(aTask, this.id);
     }
 
 }

@@ -18,6 +18,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import com.qa.tdl_project.dto.TaskDTO;
 import com.qa.tdl_project.dto.ToDoListDTO;
 import com.qa.tdl_project.presistence.domain.ToDoList;
 import com.qa.tdl_project.services.ToDoListService;
@@ -53,16 +54,16 @@ class ToDoListControllerUnitTest {
         this.testTDL = new ToDoList(title);
         this.testTDLwithID = new ToDoList(testTDL.getTitle());
         this.testTDLwithID.setId(id);
-        this.tdlList.add(testTDLwithID);
-        this.tdlDTO = this.mapToDTO(testTDLwithID);
+        this.tdlList.add(this.testTDLwithID);
+        this.tdlDTO = this.mapToDTO(this.testTDLwithID);
     }
 
     @Test
     void createTest() {
-        when(this.service.createToDoList(testTDL)).thenReturn(this.tdlDTO);
+        when(this.service.createToDoList(this.testTDL)).thenReturn(this.tdlDTO);
         ToDoListDTO testCreated = this.tdlDTO;
         assertThat(new ResponseEntity<ToDoListDTO>(testCreated, HttpStatus.CREATED))
-                .isEqualTo(this.controller.create(testTDL));
+                .isEqualTo(this.controller.create(this.testTDL));
         verify(this.service, times(1)).createToDoList(this.testTDL);
     }
 
@@ -82,14 +83,24 @@ class ToDoListControllerUnitTest {
         when(this.service.viewLists())
                 .thenReturn(this.tdlList.stream().map(this::mapToDTO).collect(Collectors.toList()));
         assertThat(this.controller.getAllToDoLists().getBody().isEmpty()).isFalse();
-
         verify(this.service, times(1)).viewLists();
     }
 
     @Test
     void deleteTest() {
-        this.controller.deleteToDoListById(id);
-        verify(this.service, times(1)).deleteToDoListById(id);
+        this.controller.deleteToDoListById(this.id);
+        verify(this.service, times(1)).deleteToDoListById(this.id);
+    }
+    
+    @Test
+    void updateTest() {
+    	List<TaskDTO> tasks = new ArrayList<>();
+        ToDoListDTO aList = new ToDoListDTO(null, "This is an important list", tasks);
+        ToDoListDTO updateList = new ToDoListDTO(this.id, aList.getTitle(), aList.getTasks());
+        when(this.service.updateTDLById(aList, this.id)).thenReturn(updateList);
+        assertThat(new ResponseEntity<ToDoListDTO>(updateList, HttpStatus.ACCEPTED))
+                .isEqualTo(this.controller.updateTDLById(this.id, aList));
+        verify(this.service, times(1)).updateTDLById(aList, this.id);
     }
 
 }

@@ -2,6 +2,8 @@ package com.qa.selenium;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -36,6 +38,7 @@ public class IndexPage {
 	
 	public void myListsLoadingTest() {
 		myListsLink.click();
+		driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
 		System.out.println(driver.getTitle());
         assertEquals("My To-Do Lists", driver.getTitle());
         driver.get(MyListsPage.URL);

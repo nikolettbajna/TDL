@@ -1,6 +1,5 @@
 package com.qa.tdl_project.rest;
 
-import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.request;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -10,7 +9,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.qa.tdl_project.dto.TaskDTO;
 import com.qa.tdl_project.dto.ToDoListDTO;
 import com.qa.tdl_project.presistence.domain.ToDoList;
 import com.qa.tdl_project.presistence.repo.ToDoListRepo;
@@ -32,9 +31,6 @@ class ToDoListControllerIntegrationTest {
 
     @Autowired
     private ToDoListRepo repo;
-    
-    @Autowired
-    private ModelMapper modelMapper;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -42,10 +38,7 @@ class ToDoListControllerIntegrationTest {
     private Long id;
     private ToDoList testTDL;
     private ToDoList testTDLwithID;
-    
-    private ToDoListDTO mapToDTO(ToDoList tdl) {
-        return this.modelMapper.map(tdl, ToDoListDTO.class);
-    }
+    private ToDoListDTO tdlDTO;
 
     @BeforeEach
     void init() {
@@ -53,6 +46,8 @@ class ToDoListControllerIntegrationTest {
         this.testTDL = new ToDoList("My Test Todo List");
         this.testTDLwithID = this.repo.save(this.testTDL);
         this.id = this.testTDLwithID.getId();
+        List<TaskDTO> tasks = new ArrayList<>();
+        this.tdlDTO = new ToDoListDTO(this.id, testTDL.getTitle(), tasks);
     }
 
     @Test
@@ -60,50 +55,43 @@ class ToDoListControllerIntegrationTest {
         this.mock
             .perform(request(HttpMethod.POST, "/todolists/create")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(this.objectMapper.writeValueAsString(testTDL))
+                .content(this.objectMapper.writeValueAsString(this.testTDL))
                 .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isCreated())
-            .andExpect(content().json(this.objectMapper.writeValueAsString(testTDLwithID)));
+            .andExpect(content().json(this.objectMapper.writeValueAsString(this.testTDLwithID)));
     }
 
     @Test
     void testView() throws Exception {
         this.mock
             .perform(request(HttpMethod.GET, "/todolists/view/" + this.id)
+            	.contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
-            .andExpect(content().json(this.objectMapper.writeValueAsString(this.testTDL)));
+            .andExpect(content().json(this.objectMapper.writeValueAsString(this.tdlDTO)));
     }
 
     @Test
     void testViewAll() throws Exception {
-        List<ToDoList> tdlList = new ArrayList<>();
-        tdlList.add(this.testTDLwithID);
-
-        String content = this.mock
-            .perform(request(HttpMethod.GET, "/todolists/viewAll")
+        List<ToDoListDTO> tdlList = new ArrayList<>();
+        tdlList.add(this.tdlDTO);
+        this.mock.perform(request(HttpMethod.GET, "/todolists/viewAll")
+        		.contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
-            .andReturn().getResponse().getContentAsString();
-        
-        assertEquals(this.objectMapper.writeValueAsString(tdlList), content);
-    }
+            .andExpect(content().json(this.objectMapper.writeValueAsString(tdlList)));
+     }
 
     @Test
     void testUpdate() throws Exception {
-        ToDoList newTDL = new ToDoList("Test List for update");
-        ToDoList updated = new ToDoList(newTDL.getTitle());
-        updated.setId(this.id);
-
-        String result = this.mock
-            .perform(request(HttpMethod.PUT, "/todolists/update/" + this.id)
+    	List<TaskDTO> tasks = new ArrayList<>();
+        ToDoListDTO aList = new ToDoListDTO(this.id, "Test List for update", tasks);
+        this.mock.perform(request(HttpMethod.PUT, "/todolists/update/" + this.id)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(this.objectMapper.writeValueAsString(newTDL)))
+                .content(this.objectMapper.writeValueAsString(aList)))
             .andExpect(status().isAccepted())
-            .andReturn().getResponse().getContentAsString();
-        
-        assertEquals(this.objectMapper.writeValueAsString(this.mapToDTO(updated)), result);
+            .andExpect(content().json(this.objectMapper.writeValueAsString(aList)));
     }
     
     @Test

@@ -33,6 +33,7 @@ public class NavigationTest {
         assertEquals("To-Do List Project", driver.getTitle());
         iPage = new IndexPage(driver);
         iPage.newListLoadingTest();
+        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
         iPage.myListsLoadingTest();
 	}
 	

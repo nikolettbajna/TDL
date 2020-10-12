@@ -43,14 +43,14 @@ public class Task {
 	@ManyToOne
 	private ToDoList list;
 	
-	public Task(String name, String description, String importance, Boolean isDone, ToDoList list) {
-		super();
-		this.name = name;
-		this.description = description;
-		this.importance = importance;
-		this.isDone = isDone;
-		this.list = list;
-	}
+//	public Task(String name, String description, String importance, Boolean isDone, ToDoList list) {
+//		super();
+//		this.name = name;
+//		this.description = description;
+//		this.importance = importance;
+//		this.isDone = isDone;
+//		this.list = list;
+//	}
 	
 	public Task(String name, String description, String importance, Boolean isDone) {
 		this.name = name;

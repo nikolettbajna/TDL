@@ -36,23 +36,25 @@ public class WebTest {
 		driver.get(URL);
 		WebElement newList = driver.findElement(By.xpath("//*[@id=\"newList\"]"));
 	    newList.click();
-	    WebElement newTitle = driver.findElement(By.xpath("//*[@id=\"title\"]"));
 	    String nT = "extra list test";
+	    WebElement newTitle = driver.findElement(By.xpath("//*[@id=\"title\"]"));
 	    newTitle.sendKeys(nT);
 	    WebElement createList = driver.findElement(By.xpath("//*[@id=\"createBtn\"]"));
 	    createList.click();
-	    assertEquals("New To-Do List",driver.getTitle());
+	    driver.get("http://localhost:5500/html/viewLists.html");
+	    assertEquals("My To-Do Lists",driver.getTitle());
 	    System.out.println(driver.getTitle());
 	    List<WebElement> lists = driver.findElements(By.cssSelector("p[class='tdlists']"));
 	    System.out.println("Array size = "+lists.size());
+	    driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
         for(WebElement list: lists) {
-        	test = list.findElement(By.cssSelector("article:nth-child[2] h3")).getText();
+        	test = list.findElement(By.cssSelector("article:nth-child["+lists.size()+"] > h3")).getText();
         	System.out.println("test: "+test);
         }
-		assertEquals("~ shopping list", test);
-		WebElement deleteList = driver.findElement(By.cssSelector("body > div > section > article > p > article:nth-child(2) > button:nth-child(2)"));
+		assertEquals("~ extra list test", test);
+		WebElement deleteList = driver.findElement(By.cssSelector("body > div > section > article > p > article:nth-child("+lists.size()+") > button:nth-child(2)"));
 	    deleteList.click();
-	    assertEquals("~ and a list", test);
+	    assertEquals("~ list", test);
 	    WebElement viewList = driver.findElement(By.cssSelector("body > div > section > article > p > article:nth-child(1) > button:nth-child(1)"));
 	    viewList.click();
 	    assertEquals("Tasks in my To-Do List", driver.getTitle());
