@@ -62,7 +62,7 @@
 
     function updateList(tId, tName, tDescription, tImportance, isDone){
 
-        fetch("http://localhost:8901/tasks/update/"+lid, {
+        fetch("http://localhost:8901/tasks/update/"+tId, {
             method: "put",
             headers: {
                 "Content-type": "application/json"
@@ -74,7 +74,7 @@
                 "importance": tImportance,
                 "isDone": isDone,
                 "list":{
-                    "id": 1
+                    "id": this.id
                 }
             })
         })

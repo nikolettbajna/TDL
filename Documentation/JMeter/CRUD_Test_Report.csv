@@ -1,0 +1,12 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1603211346751,0,check jmeter variables for auth_token,200,OK,Tasks 2-1,text,true,,244,0,1,2,null,0,0,0
+1603211346751,0,check jmeter variables for auth_token,200,OK,ToDoList 1-1,text,true,,247,0,1,2,null,0,0,0
+1603211346753,5,Create a task,201,,Tasks 2-1,text,true,,378,412,1,2,http://localhost:8901/tasks/create,5,0,1
+1603211346758,4,Read A Task,200,,Tasks 2-1,text,true,,370,152,1,2,http://localhost:8901/tasks/view/3,4,0,0
+1603211346753,11,Read lists,200,,ToDoList 1-1,text,true,,2205,157,1,2,http://localhost:8901/todolists/viewAll,11,0,0
+1603211346763,5,Update a task,202,,Tasks 2-1,text,true,,352,466,1,2,http://localhost:8901/tasks/update/17,5,0,0
+1603211346765,3,Create list,201,,ToDoList 1-1,text,true,,324,284,1,2,http://localhost:8901/todolists/create,3,0,0
+1603211346768,4,Read A list,200,,ToDoList 1-1,text,true,,302,156,1,2,http://localhost:8901/todolists/view/5,3,0,0
+1603211346768,4,Delete a task,204,,Tasks 2-1,,true,,191,241,1,2,http://localhost:8901/tasks/delete/17,0,0,0
+1603211346772,5,Update a list,202,,ToDoList 1-1,text,true,,312,310,1,1,http://localhost:8901/todolists/update/27,5,0,0
+1603211346777,3,Delete a list,204,,ToDoList 1-1,,true,,191,245,1,1,http://localhost:8901/todolists/delete/27,0,0,0
